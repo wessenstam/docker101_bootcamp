@@ -15,15 +15,6 @@
   day6/day6
   day7/day7
 
-.. toctree::
-  :maxdepth: 2
-  :caption: Appendix
-  :name: _appendix
-  :hidden:
-
-  appendix/glossary
-  appendix/otherstuff
-
 .. _getting_started:
 
 ---------------------
