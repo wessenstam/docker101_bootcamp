@@ -14,7 +14,7 @@ His overall plan for this day looks like:
 
 .. note::
 	All shown screenshots are examples. Your IP addresses will be different as shown in the screenshots throughout the workshop!
-   Estimated amount of time: ** 45 minutes ** for the lab, plus **30 minutes** max. for preparing the laptop.
+   Estimated amount of time: **45 minutes** for the lab, plus **30 minutes** max. for preparing the laptop.
 
 Step 1 - requirements to get Docker running
 +++++++++++++++++++++++++++++++++++++++++++
