@@ -4,6 +4,9 @@
 Containers - What are they?
 ---------------------------
 
+.. note::
+   Estimated amount of time: **10 minutes**
+
 Using Google to find the definition of containers, you will get a lot of hits. One of the most common hits is related to Docker. Using this engine, as set by the requirements of John’s organization, their websites shows the following definition:
 “A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 

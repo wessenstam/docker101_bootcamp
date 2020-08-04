@@ -1,6 +1,9 @@
 .. _day4:
 .. title:: Introduction to Docker
 
+.. note::
+   Estimated amount of time: **90 minutes**
+
 Day 4 - Connect containers together
 ===================================
 
@@ -12,7 +15,7 @@ John has found out yesterday that he could use a NFS server as a shared location
 .. note::
 	All shown screenshots are examples. Your IP addresses will be different as shown in the screenshots throughout the workshop!
 
-
+**SKIP THIS STEP IF CONTAINERS ARE STILL RUNNING OR FACE ERRORS**
 As John has now got 5 Webservers configured he now starts to investigate which Load Balancer he wants to use. He starts the stopped containers (he shutdown his Laptop the night before) by using a simple bash script: 
 
 .. code-block:: bash

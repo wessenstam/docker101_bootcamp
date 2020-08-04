@@ -1,6 +1,9 @@
 .. _day6:
 .. title:: Introduction to Docker
 
+.. note::
+   Estimated amount of time: **120 minutes**
+
 Day 6 - Dockerfile and changing images with Docker Swarm
 ========================================================
 
@@ -26,9 +29,9 @@ After having his test environment started and tested to see that the mater and t
    
 John decides to follow the second link and see where it leads... 
 
-He creates a new directory called *alpine_nginx* on his docker-swarm-vm /home/john and creates a Dockerfile from the examples in the article. The Dockerfile, John changed it a bit as mnot all is needed (like SMTP etc.), looks like this:
+He creates a new directory called *alpine_nginx* on his docker-swarm-vm /home/john and creates a Dockerfile from the examples in the article. The Dockerfile, John changed it a bit as not all is needed (like SMTP etc.), looks like this:
 
-.. code-blok:: bash
+.. code-block:: bash
 
     FROM alpine
 
@@ -104,7 +107,7 @@ He then rebuilds the image using the same tags. The build has been successfully 
 Test the new image Alpine nginx/php
 ...................................
 
-John runs the **docker run -it --name anp --rm dev1johndoe/alpine_nginx_php:latest** command and sees that it instantly crashes. The system cannot find the php-fpm7 it seems. “Hmmm how can I test?? I need a process that is running constantly otherwise the container will stop and not have anything I can attach to…”. John changes the wrapper.sh, as that is the file that is being called by the start of the cluster, as that is showing **CMD [“/wrapper.sh”]**. He changes it to **CMD ["/bin/sh"]** and saves the file. He then rebuilds the image and starts the container again using **docker run -it --name anp --rm dev1johndoe/alpine_nginx_php:latest**. 
+John runs the **docker run -it --name anp --rm dev1johndoe/alpine_nginx_php:latest** command and sees that it instantly crashes. The system cannot find the php-fpm7 it seems. “Hmmm how can I test?? I need a process that is running constantly otherwise the container will stop and not have anything I can attach to...”. John changes the wrapper.sh, as that is the file that is being called by the start of the cluster, as that is showing **CMD [“/wrapper.sh”]**. He changes it to **CMD ["/bin/sh"]** and saves the file. He then rebuilds the image and starts the container again using **docker run -it --name anp --rm dev1johndoe/alpine_nginx_php:latest**. 
 
 After the start he gets a command prompt and runs **find /* -name php-fpm7** to search for the location of the php-fpm7 binary. He sees that the location is *not the same as the start_php-fpm7.sh script*. He changes the script to reflect the correct location and reruns the build command and also *reverts back to the original wrapper.sh* script and changes the files and references to php5 in the files. He changes the following files:
 
@@ -188,7 +191,7 @@ So he made it through all the steps and opens the browser. Yes that is what he w
 
 .. figure:: images/6.png
 
-So no extra info, just the root of the URL and the page turns up great. Simple, but it works….
+So no extra info, just the root of the URL and the page turns up great. Simple, but it works....
 
 Push the new nginx image
 ........................
@@ -200,7 +203,7 @@ As John already has logged in before, the command uses the store credentials
 
 .. figure:: images/7.png
 
-By using the command **docker push dev1johndoe/alpine_nginx_php:latest** (name of the image) the image is pushed onto his repo…
+By using the command **docker push dev1johndoe/alpine_nginx_php:latest** (name of the image) the image is pushed onto his repo...
 
 .. figure:: images/8.png
 
@@ -208,12 +211,12 @@ On the webpage of hub.docker.com, John changes his Repo from Private to Public s
 
 .. figure:: images/9.png
 
-So that is done and ready. The image can be accessed by the swarm nodes… Let’s try to get them up and running in the Docker Swarm
+So that is done and ready. The image can be accessed by the swarm nodes... Let’s try to get them up and running in the Docker Swarm
 
 Run the new image as a service in Docker Swarm
 ..............................................
 
-John checks on the swarm-docker-m VM, to see that all his nodes are up and running via the command docker node ls and sees they are Ready and Active…
+John checks on the swarm-docker-m VM, to see that all his nodes are up and running via the command docker node ls and sees they are Ready and Active...
 
 .. figure:: images/10.png
 
@@ -221,7 +224,7 @@ John canes the common, he used earlier, to start the three containers as a servi
 
 .. figure:: images/11.png
 
-He runs the command and sees the message **verify: Service converged**. The service is running on the nodes…
+He runs the command and sees the message **verify: Service converged**. The service is running on the nodes...
 
 .. figure:: images/12.png
 
@@ -267,9 +270,9 @@ He then runs **docker exec -ti swarm_nginx_lb.1.$(docker service ps -f 'name=swa
 
 .. figure:: images/17.png
 
-Yes it is using the three IP addresses, Also the website is showing the new content with the PHP information in it…
+Yes it is using the three IP addresses, Also the website is showing the new content with the PHP information in it...
 
-“Hmmm this way I can develop AND have production ready and no interruption on the change!!! That is not even a requirement, so that would be a big benefit for the organisation…!!!”.
+“Hmmm this way I can develop AND have production ready and no interruption on the change!!! That is not even a requirement, so that would be a big benefit for the organisation...!!!”.
 
 Adding a master node in the swarm
 .................................
@@ -295,7 +298,7 @@ The command **docker node ls** as shows that the node is added as a master and t
 
 .. figure:: images/20.png
 
-John reads that the **docker node ls** command can not be run on a node. As he wants to test whatever is possible to make sure what he reads is right he runs that command **docker node ls**, on one of the nodes and gets the error message as described in what he read…
+John reads that the **docker node ls** command can not be run on a node. As he wants to test whatever is possible to make sure what he reads is right he runs that command **docker node ls**, on one of the nodes and gets the error message as described in what he read...
 
 .. figure:: images/21.png
 
@@ -354,7 +357,7 @@ After having all the masters back online he sees that in the watch command all n
 Test 3 - Stop a worker node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-John is repeating the test with one of the worker nodes he has to see the outcome. He *stops the docker service* on the first node **swarm-docker-w1** and looks to see what happens. As soon as he stopped the services in his watch docker service he saw that the service has been restarted on another node… The process on swarm-docker-w1 has been shutdown and restarted on docker-swarm-m3
+John is repeating the test with one of the worker nodes he has to see the outcome. He *stops the docker service* on the first node **swarm-docker-w1** and looks to see what happens. As soon as he stopped the services in his watch docker service he saw that the service has been restarted on another node... The process on swarm-docker-w1 has been shutdown and restarted on docker-swarm-m3
 
 .. figure:: images/29.png
 
@@ -372,4 +375,4 @@ John is starting all nodes in the Swarm again. He concluded the following:
 
 #. Multiple masters CAN be down, just as long as the majority of the masters in the Docker Swarm are active. Below that the Swarm becomes “useless”.
 #. Multiple Workers CAN be down. As long as there are enough remaining nodes, including master, are available to run the replicas of the containers. If not, one or more replicas will not be able to start. This due to ports being occupied by other containers.
-#. When the load balancer is running on the node that has been shutdown, the service gets transported, but the IP address also changes for the load balancer. That might be a big issue…. This has to be solved using DNS and some round robin method.. Ok we can fix that outside of this project.
+#. When the load balancer is running on the node that has been shutdown, the service gets transported, but the IP address also changes for the load balancer. That might be a big issue.... This has to be solved using DNS and some round robin method.. Ok we can fix that outside of this project.

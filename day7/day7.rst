@@ -1,6 +1,9 @@
 .. _day7:
 .. title:: Introduction to Docker
 
+.. note::
+   Estimated amount of time: **60 minutes**
+
 Day 7 - Scaling and monitoring
 ==============================
 
@@ -33,21 +36,21 @@ The command **docker service pd swarm_nginx_php** is showing that there are five
 
 .. figure:: images/2.png
 
-The information returned is not easily to be read, so John searches if there is a way to format and filter the data/fields shown and finds that these can be added to the command he used earlier (https://docs.docker.com/engine/reference/commandline/service_ps/). He changes the command he used earlier to **docker service ps swarm_nginx_php --format "{{.Name}}: {{.Node}} - {{.DesiredState}} - {{.CurrentState}} - {{.Error}}"** and gets an output that shows a lot info on some nodes… but it is easier to be read…
+The information returned is not easily to be read, so John searches if there is a way to format and filter the data/fields shown and finds that these can be added to the command he used earlier (https://docs.docker.com/engine/reference/commandline/service_ps/). He changes the command he used earlier to **docker service ps swarm_nginx_php --format "{{.Name}}: {{.Node}} - {{.DesiredState}} - {{.CurrentState}} - {{.Error}}"** and gets an output that shows a lot info on some nodes... but it is easier to be read...
 
 .. figure:: images/3.png
 
- Now let’s see if we can filter on this to only show the running state…
+ Now let’s see if we can filter on this to only show the running state...
 John changes the command to **docker service ps swarm_nginx_php --format "{{.Name}}: {{.Node}} - {{.CurrentState}} - {{.Ports}} - {{.Error}}" -f "desired-state=running"** and now he gets a easy clean view on the service swarm_nginx_php, the nodes, the status and the ports on which the service replicas are listening. 
 
 Scale in
 ^^^^^^^^
 
-John ran the command **docker service scale swarm_nginx_php=5** and got in total 5 replicas running in his swarm. Now what would happen if we lower that number to **3** so we are back at the starting point. So he runs that command…
+John ran the command **docker service scale swarm_nginx_php=5** and got in total 5 replicas running in his swarm. Now what would happen if we lower that number to **3** so we are back at the starting point. So he runs that command...
 
 .. figure:: images/4.png
 
-He sees that the command now has only 3 Progress lines… He runs that long command with the formatting to see where the containers life (**docker service ps swarm_nginx_php --format "{{.Name}}: {{.Node}} - {{.CurrentState}} - {{.Ports}} - {{.Error}}" -f "desired-state=running"**)…
+He sees that the command now has only 3 Progress lines... He runs that long command with the formatting to see where the containers life (**docker service ps swarm_nginx_php --format "{{.Name}}: {{.Node}} - {{.CurrentState}} - {{.Ports}} - {{.Error}}" -f "desired-state=running"**)...
 
 .. figure:: images/5.png
 
@@ -70,5 +73,6 @@ After having the article followed he opens the webpage and finds that the system
 
 .. figure:: images/8.png
 
-
-“Hahahaha, this is quite easy to set up and I get some information. This is great! It also ticks the last item in my project; monitoring….Now as this has been for my organisation, what else can I do with containers….. I wonder…”, John thinks. He goes on the internet and finds a nice article.. “Now that is something I wanna build at home……” https://bit.ly/2VvNgVp
+Putting knowledge to work at home...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+“Hahahaha, this is quite easy to set up and I get some information. This is great! It also ticks the last item in my project; monitoring....Now as this has been for my organisation, what else can I do with containers..... I wonder...”, John thinks. He goes on the internet and finds a nice article.. “Now that is something I wanna build at home......” https://bit.ly/2VvNgVp

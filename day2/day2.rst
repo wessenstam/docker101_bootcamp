@@ -1,6 +1,9 @@
 .. _day2:
 .. title:: Introduction to Docker
 
+.. note::
+   Estimated amount of time: **30 minutes**
+
 Day 2 - More advanced Docker
 ============================
 
@@ -44,23 +47,23 @@ Make changes to files in the container
 Now that he is in the container, he wants to change the text that the NGINX default page is showing. After reading the **cat /etc/nginx/conf.d/default.conf** file in the container to know where the html files are for NGINX, **/usr/share/nginx/html**, he opens that location in the container. There he sees the index.html file that is shown as the default page. Using **vi** John wants to change the file. After he types in vi he gets a command not found error. Heee, that is normal on all Linux distributions he worked with. Then he remembered again what containers are, a construct that only has the minimum Operating System binaries and supporting binaries to run one application. 
 
 After John ran the command **apt update** (to get the container to know where the get installation and update files) he runs **apt install vim -y** and hits the Enter key. This process will install vi in the container. Now he can manipulate the index.html file.
-In the vi interface John changes the text of the HTML file in two places (in bold):
+In the vi interface John changes the text of the HTML file in **two places**:
 
 #. <title>Welcome to John’s version of nginx!</title>
 #. <h1>Welcome to John’s version of nginx!</h1>
 
-He saves the file and exit vi by pressing **<ESC> :wq!** He then returns to the browser and refreshes the page… Yes it worked.
+He saves the file and exit vi by pressing **<ESC> :wq!** He then returns to the browser and refreshes the page... Yes it worked.
 
 .. figure:: images/3.png
 
-The title and the page itself have changed… John exits the container via **CTRL+D** and comes back in the prompt of his machine. Refresh of the page still shows the correct information. Great! Now let’s see what happens when we stop the container. Is the changed data still there?
-**docker stop {CONTAINER ID/NAME}** stops the container and the browser is showing as expected no page, but an error message. **docker start {CONTAINER ID/NAME}** as expected starts the container and shows the same page *WITH* the changes! Now let’s create a new container from the image nginx and see what happens and give it a name that I like, not like docker is doing now. Some random names…
+The title and the page itself have changed... John exits the container via **CTRL+D** and comes back in the prompt of his machine. Refresh of the page still shows the correct information. Great! Now let’s see what happens when we stop the container. Is the changed data still there?
+**docker stop {CONTAINER ID/NAME}** stops the container and the browser is showing as expected no page, but an error message. **docker start {CONTAINER ID/NAME}** as expected starts the container and shows the same page *WITH* the changes! Now let’s create a new container from the image nginx and see what happens and give it a name that I like, not like docker is doing now. Some random names by using the *--name* (dashdashname) parameter...
 
 John runs the command **docker run --name nginx-2 -d -p 8081:80 nginx**. As there is already a nginx server running on port 8080, John needs to use a different free port. Running the **docker ps** command John sees two containers running with each a port exposed to the outside world as defined with the *-p* parameter.
 
 .. figure:: images/4.png
 
-“Hmm now the container on port 8081 is showing wrong information when I open the URL \http://**<IP-ADDR-VM>**:8081 in a browser. Not what I wanted, but I should have known! Containers are isolated from each other and are by default immutable. Containers are created from images, so I should have done something to make the change stick in the image….”. Next try…
+“Hmm now the container on port 8081 is showing wrong information when I open the URL \http://**<IP-ADDR-VM>**:8081 in a browser. Not what I wanted, but I should have known! Containers are isolated from each other and are by default immutable. Containers are created from images, so I should have done something to make the change stick in the image....”. Next try...
 
 Change the images
 .................
@@ -81,6 +84,6 @@ Now John creates a new container using the just created image and use port 8081 
 
 .. figure:: images/6.png
 
-“Ha the same as the one running on port 8080! Great! So that worked….!”
+“Ha the same as the one running on port 8080! Great! So that worked....!”
 Well progressing greatly, but I’m done for today. Need to get some other stuff to do. Will pick this up tomorrow.
 

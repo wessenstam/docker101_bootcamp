@@ -1,6 +1,9 @@
 .. _day5:
 .. title:: Introduction to Docker
 
+.. note::
+   Estimated amount of time: **90 minutes**
+
 Day 5 - Storing images and create a HA solution
 ===============================================
 
@@ -35,7 +38,7 @@ To login into his repo he needs to run a command **docker login** in his session
 
 .. figure:: images/2.png
 
-Ok, step one done…. Up to the next step.
+Ok, step one done.... Up to the next step.
 
 Tagging images
 ..............
@@ -61,7 +64,7 @@ In the repo on hub.docker.com he also sees his image as a repo
 
 .. figure:: images/6.png
 
-"Ok so the push did work. Can I now use it???". Let’s test…
+"Ok so the push did work. Can I now use it???". Let’s test...
 
 John removes his image dev1johndoe/nginx_lb by using the command **docker image rm dev1johndoe/nginx_lb:latest** and runs **docker image ls **directly afterwards to check the image is gone.
 
@@ -71,7 +74,7 @@ He then runs **docker run -d --rm --name nginx_lb -v /home/john/www/nginx:/etc/n
 
 .. figure:: images/8.png
 
-Ok so it was able to pull the new image AND the container is running… John checks the log using **docker exec nginx_lb tail -f /var/log/access_lb.log** and sees that the load balancer is using all the defined containers again.
+Ok so it was able to pull the new image AND the container is running... John checks the log using **docker exec nginx_lb tail -f /var/log/access_lb.log** and sees that the load balancer is using all the defined containers again.
 
 .. figure:: images/9.png
 
@@ -79,17 +82,17 @@ John decides to also push his nginx image to the repo... He tags the image with 
 
 .. figure:: images/10.png
 
-On his repo at hub.docker.com he sees two images that he just uploaded…
+On his repo at hub.docker.com he sees two images that he just uploaded...
 
 .. figure:: images/11.png
 
-That gets step two of the organizations requirements (:ref:`requirements`) out of the way as well as the set sub golas for today… Now let’s see how I can make this a HA solution for the web servers and maybe even for the Load Balancer….
+That gets step two of the organizations requirements (:ref:`requirements`) out of the way as well as the set sub golas for today... Now let’s see how I can make this a HA solution for the web servers and maybe even for the Load Balancer....
 
 
 Creating a HA solution for Containers
 .....................................
 
-John is searching the internet and sees that there are two main players now for creating a clustered environment (orchestration) for his containers he just created. Docker Swarm and Kubernetes. One of the articles he found, https://phoenixnap.com/blog/kubernetes-vs-docker-swarm, gave to his opinion a very good comparison between the two solutions. Even though he tends to lean more towards kubernetes, one line is returning over and over again.. **Initial setup is simple on Docker Swarm and difficult on Kubernetes**. As John is a novice in the world of containers and orchestration in particular, he decides to put his money on Docker Swarm for this project. If all works, let’s see if we can transform this solution to a Kubernetes platform when the time is right. Docker Swarm can be built using any cloud solution, natively or not, so that takes care of the organization's requirement that we should be able to transport to the cloud…. So either solution, we’re covered…
+John is searching the internet and sees that there are two main players now for creating a clustered environment (orchestration) for his containers he just created. Docker Swarm and Kubernetes. One of the articles he found, https://phoenixnap.com/blog/kubernetes-vs-docker-swarm, gave to his opinion a very good comparison between the two solutions. Even though he tends to lean more towards kubernetes, one line is returning over and over again.. **Initial setup is simple on Docker Swarm and difficult on Kubernetes**. As John is a novice in the world of containers and orchestration in particular, he decides to put his money on Docker Swarm for this project. If all works, let’s see if we can transform this solution to a Kubernetes platform when the time is right. Docker Swarm can be built using any cloud solution, natively or not, so that takes care of the organization's requirement that we should be able to transport to the cloud.... So either solution, we’re covered...
 
 Docker Swarm 
 ............
@@ -126,7 +129,7 @@ On the Alpine server he had to make a small change to the exports. He changed th
 - **/www/nginx	192.168.1.0/24(rw,sync,no_subtree_check)**
 - **/www 192.168.1.0/24(rw,sync,no_subtree_check)**
 
-After the changes have been made, he runs **exportfs -a** so the nfs server exports the new exports. That way he would have more control on what gets mounted where. Even though the locations are somewhat alike, it would help he thinks. Let’s see… and try…
+After the changes have been made, he runs **exportfs -a** so the nfs server exports the new exports. That way he would have more control on what gets mounted where. Even though the locations are somewhat alike, it would help he thinks. Let’s see... and try...
 
 Going onto the internet to get some detailed information he read the following articles:
 
@@ -150,19 +153,19 @@ He sees that all three sites reply with the expected information.
 
 .. figure:: images/16.png
 
-Ok, so the web servers are running, now let’s get the Load Balancer running on this swarm as well…
+Ok, so the web servers are running, now let’s get the Load Balancer running on this swarm as well...
 
 To be sure the system grabs the image from the repo he changes the image to dev1johndoe/nginx_lb and deletes the local one on his master using **docker image rm dev1johndoe/nhinx_lb**.
 
 .. figure:: images/17.png
 
-John checks quickly on hub.docker.com and sees that the image is also private and changes that to private. He is going to sort that out later on in the project…. Now let’s test if all works now. He uses the command line he used to start the web servers and makes the necessary changes so the load balancer can start. **docker service create --mount 'type=volume,volume-opt=o=addr=192.168.1.220,volume-opt=device=:/www/nginx,volume-opt=type=nfs,source=nfs_nginx_lb,target=/etc/nginx/,volume-nocopy=true' --replicas=1 --name swarm_nginx_lb --publish mode=host,target=80,published=80 dev1johndoe/nginx_lb** according to the output of the command, **verify: Service converged** the load balancer is running
+John checks quickly on hub.docker.com and sees that the image is also private and changes that to private. He is going to sort that out later on in the project.... Now let’s test if all works now. He uses the command line he used to start the web servers and makes the necessary changes so the load balancer can start. **docker service create --mount 'type=volume,volume-opt=o=addr=192.168.1.220,volume-opt=device=:/www/nginx,volume-opt=type=nfs,source=nfs_nginx_lb,target=/etc/nginx/,volume-nocopy=true' --replicas=1 --name swarm_nginx_lb --publish mode=host,target=80,published=80 dev1johndoe/nginx_lb** according to the output of the command, **verify: Service converged** the load balancer is running
 
 .. figure:: images/18.png
 
 Ok let’s jump into the URL of the load balancer, the IP addresses of the master to see if the Load Balancer is running. He gets the information he was expecting. The browser is showing **Welcome to Johns Swarm environment**. So that seems to have worked!!! Great!!
 
-Now to see the log file of the load balancer also shows that all the three nodes are being used for providing the data. John has found an article that describes an alike situation (https://stackoverflow.com/questions/39362363/execute-a-command-within-docker-swarm-service/48944377) and runs **docker exec -ti swarm_nginx_lb.1.$(docker service ps -f 'name=swarm_nginx_lb.1' swarm_nginx_lb -q --no-trunc | head -n1) tail -f /var/log/nginx/access_lb.log** and sees that the load balancer is balancing between web servers, but not those that he expected. The load balancer is still on the “old” config files and uses the containers that have the different ports… "Man. Forgot to stop those containers..". John stops the "old" containers and returns to the load balancer’s URL. Now he gets an error of **Bad Gateway**. Ok this is more like it.. Now John has to change the config of the load balancer to use the three nodes where the containers run in the Docker Swarm. 
+Now to see the log file of the load balancer also shows that all the three nodes are being used for providing the data. John has found an article that describes an alike situation (https://stackoverflow.com/questions/39362363/execute-a-command-within-docker-swarm-service/48944377) and runs **docker exec -ti swarm_nginx_lb.1.$(docker service ps -f 'name=swarm_nginx_lb.1' swarm_nginx_lb -q --no-trunc | head -n1) tail -f /var/log/nginx/access_lb.log** and sees that the load balancer is balancing between web servers, but not those that he expected. The load balancer is still on the “old” config files and uses the containers that have the different ports... "Man. Forgot to stop those containers..". John stops the "old" containers and returns to the load balancer’s URL. Now he gets an error of **Bad Gateway**. Ok this is more like it.. Now John has to change the config of the load balancer to use the three nodes where the containers run in the Docker Swarm. 
 
 Update the NGINX in the swarm on all nodes
 ..........................................
