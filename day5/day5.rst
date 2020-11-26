@@ -155,7 +155,7 @@ He sees that all three sites reply with the expected information.
 
 Ok, so the web servers are running, now let’s get the Load Balancer running on this swarm as well...
 
-To be sure the system grabs the image from the repo he changes the image to dev1johndoe/nginx_lb and deletes the local one on his master using ``docker image rm dev1johndoe/nhinx_lb``.
+To be sure the system grabs the image from the repo he changes the image to dev1johndoe/nginx_lb and deletes the local one on his master using ``docker image rm dev1johndoe/nginx_lb``.
 
 .. figure:: images/17.png
 
@@ -176,9 +176,9 @@ The content of the file www/nginx/conf.d/default.conf in his local mounted nfs f
 
 	upstream loadbalance {
 	    least_conn;
-	    server 192.168.1.157;
-	    server 192.168.1.160;
-	    server 192.168.1.193;
+	    server 192.168.1.157:8080;
+	    server 192.168.1.160:8080;
+	    server 192.168.1.193:8080;
 	}
 	server {
 	    access_log /var/log/nginx/access_lb.log main;
