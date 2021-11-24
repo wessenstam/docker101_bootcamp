@@ -57,7 +57,7 @@ He sees his just created container nginx_nfs and it is still running... Great ne
 
 He sees the NFS content! “Yihaa! This container is now using remote data... That is much easier if I need to have multiple containers using the same data! No more images to be updating if they need a small change in the HTML related space.” he thinks....
 
-He opens on his own machine http://www.nutanix.com and goes to see the source of the page. He copies the source into a new file called index.html in the NFS share and saves the file in the NFS share. He then changes to the IP address of his machine on port 8083 to see if the nginx container shows the page. Maybe not 100%, but at least the basics... Well that work. Not the best experience, but at least I have something to test with... So he creates a simple script that will start 5 containers using port 8091 till 8095 and using the same file location as this container he is running. The script looks like this:
+He opens on his own machine http://www.thycotic.com and goes to see the source of the page. He copies the source into a new file called index.html in the NFS share and saves the file in the NFS share. He then changes to the IP address of his machine on port 8083 to see if the nginx container shows the page. Maybe not 100%, but at least the basics... Well that work. Not the best experience, but at least I have something to test with... So he creates a simple script that will start 5 containers using port 8091 till 8095 and using the same file location as this container he is running. The script looks like this:
 
 .. code-block:: bash
 

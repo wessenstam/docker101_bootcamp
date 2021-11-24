@@ -56,7 +56,7 @@ To support John in his quest he has created a path to get his knowledge up and r
 This workshop is showing you how John steps through most of the set items in his path... 
 
 .. note::
-  The workshop can be run fully from your own laptop as it is not using any Nutanix related features. It is built to let you get familiar with Docker and Docker Swarm. The total amount of time for the workshop is a full day.
+  The workshop can be run fully from your own laptop. It is built to let you get familiar with Docker and Docker Swarm. The total amount of time for the workshop is a full day.
   Commands that need to be run are in **bold** so you can keep track and find them easily.
 
 
