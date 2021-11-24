@@ -66,7 +66,7 @@ In the repo on hub.docker.com he also sees his image as a repo
 
 "Ok so the push did work. Can I now use it???". Let’s test...
 
-John removes his image dev1johndoe/nginx_lb by using the command ``docker image rm dev1johndoe/nginx_lb:latest`` and runs ``docker image ls ``directly afterwards to check the image is gone.
+John removes his image dev1johndoe/nginx_lb by using the command ``docker image rm dev1johndoe/nginx_lb:latest`` and runs ``docker image ls`` directly afterwards to check the image is gone.
 
 .. figure:: images/7.png
 

@@ -13,8 +13,9 @@ His overall plan for this day looks like:
 #. Some simple management
 
 .. note::
-	All shown screenshots are examples. Your IP addresses will be different as shown in the screenshots throughout the workshop!
-   Estimated amount of time: ``45 minutes`` for the lab, plus ``30 minutes`` max. for preparing the laptop.
+
+      All shown screenshots are examples. Your IP addresses will be different as shown in the screenshots throughout the workshop!|
+      Estimated amount of time: ``45 minutes`` for the lab, plus ``30 minutes`` max. for preparing the laptop.
 
 Step 1 - requirements to get Docker running
 +++++++++++++++++++++++++++++++++++++++++++
@@ -85,7 +86,7 @@ Next step John is interested in how can he manage containers? He is looking to g
 #. What are the ports running containers have exposed, if any?
 
 Which containers are there on the system
-.......................................
+........................................
 
 To see what containers are on John’s machine he found, using Google, a command that shows exactly what he needed docker container ls. After running the command in the terminal session the list was empty... “Hmm what have I done wrong? There should be at least the hello-world container as I ran that....”. A more narrow search revealed that the docker container command only show ``RUNNING`` containers. Adding the option *--all* (dashdashall)shows ALL containers running or not (https://docs.docker.com/engine/reference/commandline/container_ls/). So he used the command ``docker container list --all`` and sees the hello-world container with the status Exited (0) and when the Exit status happened.
 

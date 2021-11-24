@@ -40,7 +40,7 @@ The information returned is not easily to be read, so John searches if there is 
 
 .. figure:: images/3.png
 
- Now let’s see if we can filter on this to only show the running state...
+Now let’s see if we can filter on this to only show the running state...
 John changes the command to ``docker service ps swarm_nginx_php --format "{{.Name}}: {{.Node}} - {{.CurrentState}} - {{.Ports}} - {{.Error}}" -f "desired-state=running"`` and now he gets a easy clean view on the service swarm_nginx_php, the nodes, the status and the ports on which the service replicas are listening. 
 
 Scale in
