@@ -1,4 +1,4 @@
-.. title:: Introduction to Docker
+.. title:: Delinea - Introduction to Docker
 
 .. toctree::
   :maxdepth: 2
